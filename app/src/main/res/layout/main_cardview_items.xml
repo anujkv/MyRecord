@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/margin120dp"
+    android:layout_height="@dimen/margin160dp"
+    xmlns:cardview = "http://schemas.android.com/apk/res-auto"
+    android:outlineAmbientShadowColor="@color/cardview_dark_background"
+    cardview:cardCornerRadius="@dimen/margin5dp"
+    android:layout_margin="@dimen/margin10dp"
+    tools:targetApi="p"
+    android:focusable="true">
+
+    <LinearLayout
+        android:id="@+id/cardview_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:focusable="true"
+        tools:targetApi="m">
+
+        <ImageView
+
+            android:id="@+id/app_role_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin100dp"
+            android:padding="@dimen/margin20dp"
+            android:src="@drawable/ic_product"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/optionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|center"
+            android:textSize="13sp"
+            android:textColor="@color/primary_text"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

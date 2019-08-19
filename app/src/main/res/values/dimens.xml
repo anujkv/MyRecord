@@ -1,0 +1,54 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="margin1dp">1dp</dimen>
+    <dimen name="margin2dp">2dp</dimen>
+    <dimen name="margin3dp">3dp</dimen>
+    <dimen name="margin5dp">5dp</dimen>
+    <dimen name="margin8dp">8dp</dimen>
+    <dimen name="margin10dp">10dp</dimen>
+    <dimen name="margin12dp">12dp</dimen>
+    <dimen name="margin16dp">16dp</dimen>
+    <dimen name="margin20dp">20dp</dimen>
+    <dimen name="margin24dp">24dp</dimen>
+    <dimen name="margin30dp">30dp</dimen>
+    <dimen name="margin50dp">50dp</dimen>
+    <dimen name="margin100dp">100dp</dimen>
+    <dimen name="margin120dp">120dp</dimen>
+    <dimen name="margin140dp">140dp</dimen>
+    <dimen name="margin160dp">160dp</dimen>
+
+
+    <dimen name="text12sp">12sp</dimen>
+    <dimen name="text14sp">14sp</dimen>
+    <dimen name="text16sp">16sp</dimen>
+    <dimen name="text20sp">20sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="text13sp">13sp</dimen>
+    <dimen name="margin70dp">70dp</dimen>
+    <dimen name="margin4dp">4dp</dimen>
+    <dimen name="text18sp">18sp</dimen>
+    <dimen name="text25sp">25dp</dimen>
+    <dimen name="margin0dp">0dp</dimen>
+    <dimen name="margin18dp">18dp</dimen>
+    <dimen name="text15sp">15sp</dimen>
+    <dimen name="margin25dp">25dp</dimen>
+    <dimen name="margin15dp">15dp</dimen>
+    <dimen name="margin60dp">60dp</dimen>
+    <dimen name="text10sp">10sp</dimen>
+    <dimen name="margin80dp">80dp</dimen>
+    <dimen name="margin40dp">40dp</dimen>
+    <dimen name="margin42dp">42dp</dimen>
+    <dimen name="text40sp">40sp</dimen>
+    <dimen name="text30sp">30sp</dimen>
+    <dimen name="margin14dp">14dp</dimen>
+    <dimen name="margin06dp">06dp</dimen>
+    <dimen name="margin500dp">500dp</dimen>
+    <dimen name="margin300dp">300dp</dimen>
+    <dimen name="margin400dp">400dp</dimen>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="colorPrimaryLight">#FFA000</color>
+    <color name="colorAccent">#FF5722</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="icon_blue_color">#2C81A6</color>
+    <color name="icon_red_colors">#FF5252</color>
+    <color name="icons_white">#FFFFFF</color>
+    <color name="dividerGray">#BDBDBD</color>
+    <color name="btn_enabledColor">#2196f3</color>
+    <color name="editTextColor">#eceff1</color>
+
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="gray">#757575</color>
+    <color name="light_gray">#FF888888</color>
+    <color name="dkGRAY">#FF444444</color>
+    <color name="gradient_db">#151c25</color>
+    <color name="green4caf50">#4caf50</color>
+
+    <color name="darkvollete">#130A25</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="error_color">#B00020</color>
+    <color name="black">#000000</color>
+
+    <color name="transparent_color">#20000000</color>
+
+    <color name="colorDarkGrap_1e1e23">#1e1e23</color>
+    <color name="colorDarkGrap_151518">#151518</color>
+
+</resources>
