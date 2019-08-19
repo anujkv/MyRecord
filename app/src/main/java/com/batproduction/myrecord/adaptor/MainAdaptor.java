@@ -1,6 +1,7 @@
 package com.batproduction.myrecord.adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.batproduction.myrecord.R;
+import com.batproduction.myrecord.activity.AddProduct.AddProduct;
 import com.batproduction.myrecord.model.MainModel;
 
 import java.util.List;
@@ -51,7 +53,7 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.HolderView> {
 //                        accessRoleInstance.check("operations",context);
                         Toast.makeText(context, "Add Product",
                                 Toast.LENGTH_SHORT).show();
-//                        context.startActivity(new Intent(context, HRMS.class));
+                        context.startActivity(new Intent(context, AddProduct.class));
                         break;
                     case 1:
 //                        accessRoleInstance.check("hrms",context);

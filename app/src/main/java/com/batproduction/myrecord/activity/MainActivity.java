@@ -1,7 +1,8 @@
-package com.batproduction.myrecord;
+package com.batproduction.myrecord.activity;
 
 import android.os.Bundle;
 
+import com.batproduction.myrecord.R;
 import com.batproduction.myrecord.adaptor.MainAdaptor;
 import com.batproduction.myrecord.model.MainModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity
         isModelList.add(new MainModel(R.drawable.ic_product, "Add Product"));
         isModelList.add(new MainModel(R.drawable.ic_worker, "Add Employee"));
         isModelList.add(new MainModel(R.drawable.ic_clipboard, "Daily Production Entry"));
-        isModelList.add(new MainModel(R.drawable.ic_cash, "Daily Distribution Cash"));
-        isModelList.add(new MainModel(R.drawable.ic_income, "Employee Income"));
+        isModelList.add(new MainModel(R.drawable.ic_cash, "Daily Cash Distribution"));
+        isModelList.add(new MainModel(R.drawable.ic_income, "Employee Wages"));
 
 
         recyclerView = findViewById(R.id.mainRecyclerView);
@@ -110,17 +111,28 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_dashboard) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_add_product) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_add_employee) {
+
+        } else if (id == R.id.nav_daily_production_entry) {
+
+        } else if (id == R.id.nav_daily_cash_distribution) {
+
+        } else if (id == R.id.nav_employee_wages) {
 
         } else if (id == R.id.nav_tools) {
+
+        } else if (id == R.id.nav_logout) {
+            finish();
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.nav_app_info) {
 
         }
 

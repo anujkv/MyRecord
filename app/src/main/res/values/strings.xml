@@ -13,4 +13,12 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_add_product">Add Product</string>
+    <string name="menu_add_employee">Add Employee</string>
+    <string name="menu_daily_production_entry">Daily Production Entry</string>
+    <string name="menu_daily_cash_distribution">Daily Cash Distribution</string>
+    <string name="menu_employee_wages">Employee Wages</string>
+    <string name="menu_app_info">About Us</string>
+    <string name="menu_logout">Logout</string>
 </resources>
