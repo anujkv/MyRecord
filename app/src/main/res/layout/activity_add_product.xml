@@ -31,6 +31,29 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/app_toolbar" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin4dp"
+            android:padding="@dimen/margin8dp">
+
+            <TextView
+                android:layout_width="@dimen/margin0dp"
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:text="@string/product_id_tv"/>
+            <TextView
+                android:layout_width="@dimen/margin0dp"
+                android:layout_weight=".4"
+                android:layout_height="wrap_content"
+                android:text="@string/product_name_tv"/>
+            <TextView
+                android:layout_width="@dimen/margin0dp"
+                android:layout_weight=".3"
+                android:layout_height="wrap_content"
+                android:text="@string/product_cost_tv"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/addProductRV"
@@ -42,6 +65,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin12dp"

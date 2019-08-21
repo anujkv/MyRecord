@@ -21,4 +21,12 @@
     <string name="menu_employee_wages">Employee Wages</string>
     <string name="menu_app_info">About Us</string>
     <string name="menu_logout">Logout</string>
+    <string name="product_id">product_id</string>
+    <string name="product_id_tv">Product ID</string>
+    <string name="product_name_tv">Product Name</string>
+    <string name="product_cost_tv">Product Cost</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add">Add</string>
 </resources>

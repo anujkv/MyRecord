@@ -23,18 +23,22 @@
                 android:id="@+id/productIDTV"
                 android:layout_width="0dp"
                 android:layout_weight=".3"
+                android:padding="@dimen/margin4dp"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/product_nameTV"
                 android:layout_width="@dimen/margin0dp"
                 android:layout_weight=".4"
-                android:gravity="center"
-                android:inputType="number"
+                android:padding="@dimen/margin4dp"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/product_priceED"
                 android:layout_width="@dimen/margin0dp"
                 android:layout_weight=".3"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text12sp"
+                android:inputType="number"
+                android:padding="@dimen/margin4dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
