@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +19,7 @@ import android.widget.Toast;
 import com.batproduction.myrecord.R;
 import com.batproduction.myrecord.adaptor.ProductAdaptor;
 import com.batproduction.myrecord.databinding.ActivityAddProductBinding;
-import com.batproduction.myrecord.model.Product;
+import com.batproduction.myrecord.model.ProductModel.Product;
 import com.batproduction.myrecord.sqliteDB.DBHandler;
 import com.batproduction.myrecord.utils.RecyclerItemClickListener;
 
@@ -135,7 +132,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
     }
 
     private void initRecyclerView() {
-        productList = dbH.getdata();
+        productList = dbH.getProductData();
         productAdaptor = new ProductAdaptor(this, productList);
         apbi.addProductRV.setLayoutManager(new LinearLayoutManager(this));
         apbi.addProductRV.setAdapter(productAdaptor);
@@ -166,8 +163,8 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                     public void onClick(DialogInterface dialog, int which) {
 
                         alertDialog.dismiss();
-                        finish();
-                        startActivity(getIntent());
+//                        finish();
+//                        startActivity(getIntent());
 
                     }
                 });
@@ -175,7 +172,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DBHandler databaseHelper = new DBHandler(AddProduct.this);
-                        boolean trm=databaseHelper.deleteitem(arrr);
+                        boolean trm=databaseHelper.deleteitem(getApplicationContext(), arrr);
                         if (trm){
 
                             alertDialog.dismiss();
@@ -184,6 +181,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                         } }
                 });
                 alertDialog.show();
+
             }
         }));
 

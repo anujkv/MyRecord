@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.batproduction.myrecord.R;
+import com.batproduction.myrecord.activity.AddEmployee.AddEmployee;
 import com.batproduction.myrecord.activity.AddProduct.AddProduct;
 import com.batproduction.myrecord.model.MainModel;
 
@@ -59,7 +60,7 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.HolderView> {
 //                        accessRoleInstance.check("hrms",context);
                         Toast.makeText(context, "Add Employee",
                                 Toast.LENGTH_SHORT).show();
-//                        context.startActivity(new Intent(context, CustomerVisit.class));
+                        context.startActivity(new Intent(context, AddEmployee.class));
                         break;
                     case 2:
 //                        accessRoleInstance.check("crm",context);

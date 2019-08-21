@@ -1,4 +1,4 @@
-package com.batproduction.myrecord.model;
+package com.batproduction.myrecord.model.ProductModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

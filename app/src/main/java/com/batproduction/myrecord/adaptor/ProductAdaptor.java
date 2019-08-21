@@ -3,7 +3,6 @@ package com.batproduction.myrecord.adaptor;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.batproduction.myrecord.R;
-import com.batproduction.myrecord.model.Product;
+import com.batproduction.myrecord.model.ProductModel.Product;
 import com.batproduction.myrecord.sqliteDB.DBHandler;
 
 import java.util.List;
