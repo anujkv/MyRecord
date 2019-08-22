@@ -5,4 +5,5 @@ public class CONSTANT {
     public final static String product_name = "product_name";
     public final static String product_cost = "product_cost";
     public static String product_table = "product_table";
+    public static String dataNotFound = "Data not found";
 }

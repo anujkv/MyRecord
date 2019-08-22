@@ -37,4 +37,6 @@
     <string name="bankname">Bank Name</string>
     <string name="ifsc_code">Ifsc Code</string>
     <string name="bank_account">Account No</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
 </resources>

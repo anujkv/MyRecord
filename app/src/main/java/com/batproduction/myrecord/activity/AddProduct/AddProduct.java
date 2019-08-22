@@ -32,7 +32,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
     ActivityAddProductBinding apbi;
     @BindView(R.id.title_toolbar)
     TextView title_toolbar;
-    private String TAG = "Tag";
+    private String TAG = this.getClass().getSimpleName();
 
     ProductAdaptor productAdaptor;
     List<Product> productList;
@@ -172,7 +172,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DBHandler databaseHelper = new DBHandler(AddProduct.this);
-                        boolean trm=databaseHelper.deleteitem(getApplicationContext(), arrr);
+                        boolean trm=databaseHelper.deleteitem(TAG, arrr);
                         if (trm){
 
                             alertDialog.dismiss();

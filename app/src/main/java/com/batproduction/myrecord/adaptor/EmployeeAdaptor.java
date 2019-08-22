@@ -1,6 +1,7 @@
 package com.batproduction.myrecord.adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.batproduction.myrecord.R;
+import com.batproduction.myrecord.activity.AddEmployee.EmployeeDetails;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
 
 import java.util.List;
@@ -36,6 +38,14 @@ public class EmployeeAdaptor extends RecyclerView.Adapter<EmployeeAdaptor.ViewHo
         final Employee employee = employeeList.get(position);
         holder.emp_id.setText(employee.getEmployee_id());
         holder.emp_name.setText(employee.getEmployee_name());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EmployeeDetails.class);
+                intent.putExtra("id",employee.getEmployee_id());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,6 +61,9 @@ public class EmployeeAdaptor extends RecyclerView.Adapter<EmployeeAdaptor.ViewHo
             emp_id = itemView.findViewById(R.id.employeeIDTV);
             emp_name = itemView.findViewById(R.id.employeeNameTV);
             cardView = itemView.findViewById(R.id.cardView);
+
+
+//            cardView.callOnClick();
         }
     }
 }

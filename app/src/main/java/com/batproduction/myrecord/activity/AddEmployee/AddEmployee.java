@@ -24,6 +24,7 @@ import com.batproduction.myrecord.databinding.ActivityAddEmployeeBinding;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
 import com.batproduction.myrecord.sqliteDB.DBHandler;
 import com.batproduction.myrecord.utils.RecyclerItemClickListener;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
     ActivityAddEmployeeBinding aebi;
     @BindView(R.id.title_toolbar)
     TextView title_toolbar;
-    private String TAG = "Tag";
+    String TAG = this.getClass().getSimpleName();
 
     EmployeeAdaptor employeeAdaptor;
     List<Employee> employeeList;
@@ -105,7 +106,7 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DBHandler databaseHelper = new DBHandler(AddEmployee.this);
-                        boolean trm = databaseHelper.deleteitem(getApplicationContext(), arrr);
+                        boolean trm = databaseHelper.deleteitem(TAG, arrr);
                         if (trm) {
 
                             alertDialog.dismiss();
@@ -138,6 +139,13 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
         LayoutInflater layoutInflater = getLayoutInflater();
         final View addLayout = layoutInflater.inflate(R.layout.add_new_employee_layout, null);
         emp_id = addLayout.findViewById(R.id.input_employee_id);
+        if(employeeList.size()>9){
+            emp_id.setText("V0"+(employeeList.size()+1));
+        }else if(employeeList.size()>99){
+            emp_id.setText("V"+(employeeList.size()+1));
+        }else{
+            emp_id.setText("V00"+(employeeList.size()+1));
+        }
         emp_name = addLayout.findViewById(R.id.input_employee_name);
         emp_contact = addLayout.findViewById(R.id.input_employee_contact);
         emp_address = addLayout.findViewById(R.id.input_employee_address);
@@ -154,7 +162,7 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                dialog.dismiss();
                 Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
             }
         });
@@ -193,5 +201,11 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
         });
         dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        initRecyclerView();
     }
 }

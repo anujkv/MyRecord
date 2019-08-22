@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddEmployee.AddEmployee"></activity>
+        <activity android:name=".activity.Daily_Production.DailyProduction"></activity>
+        <activity android:name=".activity.AddEmployee.EmployeeDetails" />
+        <activity android:name=".activity.AddEmployee.AddEmployee" />
         <activity android:name=".activity.AddProduct.AddProduct" />
         <activity
             android:name=".activity.MainActivity"
