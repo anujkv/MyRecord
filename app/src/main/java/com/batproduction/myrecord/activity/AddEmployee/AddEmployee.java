@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,14 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.batproduction.myrecord.R;
-import com.batproduction.myrecord.activity.AddProduct.AddProduct;
 import com.batproduction.myrecord.adaptor.EmployeeAdaptor;
-import com.batproduction.myrecord.adaptor.ProductAdaptor;
 import com.batproduction.myrecord.databinding.ActivityAddEmployeeBinding;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
 import com.batproduction.myrecord.sqliteDB.DBHandler;
 import com.batproduction.myrecord.utils.RecyclerItemClickListener;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -77,13 +75,19 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onItemClick(View view, int position) {
 
-                String arrr = employeeList.get(position).getEmployee_id();
-                Toast.makeText(AddEmployee.this, "" + arrr, Toast.LENGTH_SHORT).show();
+//                arrr = employeeList.get(position).getEmployee_id();
+                Intent intent = new Intent(getApplicationContext(),EmployeeDetails.class);
+                intent.putExtra("id",employeeList.get(position).getEmployee_id());
 
+                Log.e("ID",employeeList.get(position).getEmployee_id());
+//                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
 
+
+
             @Override
-            public void onLongClick(View view, int position) {
+            public boolean onLongClick(View view, int position) {
                 arrr = employeeList.get(position).getEmployee_id();
 //                ar = Integer.parseInt(arrr);
 
@@ -116,7 +120,7 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
                     }
                 });
                 alertDialog.show();
-
+                return true;
             }
         }));
 
@@ -172,7 +176,6 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(final DialogInterface dialog, int which) {
 
-
                 try {
                     id = emp_id.getText().toString().trim();
                     name = emp_name.getText().toString().trim();
@@ -186,7 +189,6 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
                     DBHandler dbHandler = new DBHandler(AddEmployee.this);
                     if (dbHandler.addEmployee(id, name, contact,address,aadharCard,bankName,bankIfsc,backAccount)) {
                         Toast.makeText(AddEmployee.this, "Product add, successfully!", Toast.LENGTH_SHORT).show();
-
                         initRecyclerView();
 
                     } else {

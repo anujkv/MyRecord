@@ -39,4 +39,12 @@
     <string name="bank_account">Account No</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
+    <string name="uuid">UUID</string>
+    <string name="created_date">Date</string>
+    <string name="price">Price (Rs)</string>
+    <string name="qty">Qty</string>
+    <string name="total">Total (Rs)</string>
+
+    <string name="product_prompt">Products</string>
+    <string name="employee_prompt">Employee</string>
 </resources>

@@ -149,7 +149,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
             }
 
             @Override
-            public void onLongClick(View view, int position) {
+            public boolean onLongClick(View view, int position) {
                 arrr= productList.get(position).getProduct_id();
 //                ar = Integer.parseInt(arrr);
 
@@ -165,6 +165,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                         alertDialog.dismiss();
 //                        finish();
 //                        startActivity(getIntent());
+
 
                     }
                 });
@@ -182,6 +183,7 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                 });
                 alertDialog.show();
 
+                return true;
             }
         }));
 

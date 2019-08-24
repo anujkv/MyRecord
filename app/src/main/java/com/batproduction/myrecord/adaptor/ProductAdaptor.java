@@ -44,6 +44,7 @@ public class ProductAdaptor extends RecyclerView.Adapter<ProductAdaptor.ViewHold
         holder.product_name.setText(product.getProduct_name());
         holder.product_cost.setText(product.getProduct_cost());
 
+
         holder.product_cost.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {

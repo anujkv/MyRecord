@@ -11,10 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.Daily_Production.DailyProduction"></activity>
-        <activity android:name=".activity.AddEmployee.EmployeeDetails" />
-        <activity android:name=".activity.AddEmployee.AddEmployee" />
-        <activity android:name=".activity.AddProduct.AddProduct" />
+        <activity android:name=".activity.Daily_Production.DailyProduction"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".activity.AddEmployee.EmployeeDetails"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".activity.AddEmployee.AddEmployee"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".activity.AddProduct.AddProduct"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"

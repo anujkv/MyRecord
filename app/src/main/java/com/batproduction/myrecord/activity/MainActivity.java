@@ -1,8 +1,11 @@
 package com.batproduction.myrecord.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.batproduction.myrecord.R;
+import com.batproduction.myrecord.activity.AddEmployee.AddEmployee;
+import com.batproduction.myrecord.activity.AddProduct.AddProduct;
 import com.batproduction.myrecord.adaptor.MainAdaptor;
 import com.batproduction.myrecord.model.MainModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -114,8 +117,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_dashboard) {
             // Handle the camera action
         } else if (id == R.id.nav_add_product) {
+            startActivity(new Intent(this, AddProduct.class));
 
         } else if (id == R.id.nav_add_employee) {
+            startActivity(new Intent(this, AddEmployee.class));
 
         } else if (id == R.id.nav_daily_production_entry) {
 

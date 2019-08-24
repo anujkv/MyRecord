@@ -38,14 +38,15 @@ public class EmployeeAdaptor extends RecyclerView.Adapter<EmployeeAdaptor.ViewHo
         final Employee employee = employeeList.get(position);
         holder.emp_id.setText(employee.getEmployee_id());
         holder.emp_name.setText(employee.getEmployee_name());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, EmployeeDetails.class);
-                intent.putExtra("id",employee.getEmployee_id());
-                context.startActivity(intent);
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, EmployeeDetails.class);
+//                intent.putExtra("id",employee.getEmployee_id());
+//                context.startActivity(intent);
+//            }
+//        });
+
     }
 
     @Override

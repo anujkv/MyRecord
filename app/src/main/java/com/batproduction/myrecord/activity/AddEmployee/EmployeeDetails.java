@@ -21,6 +21,7 @@ import com.batproduction.myrecord.utils.CONSTANT;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,9 +40,11 @@ public class EmployeeDetails extends AppCompatActivity implements View.OnClickLi
     boolean FLAG = false;
     DBHandler dbHandler = new DBHandler(this);
     ArrayList<String> arrayList;
+    public static AtomicInteger activitiesLaunched = new AtomicInteger(0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (activitiesLaunched.incrementAndGet() > 1) { finish(); }
         super.onCreate(savedInstanceState);
         aedb = DataBindingUtil.setContentView(this, R.layout.activity_employee_details);
         ButterKnife.bind(this);
@@ -130,5 +133,15 @@ public class EmployeeDetails extends AppCompatActivity implements View.OnClickLi
         aedb.inputBankname.setEnabled(true);
         aedb.inputEmployeeIfsc.setEnabled(true);
         aedb.inputBankAccount.setEnabled(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        //remove this activity from the counter
+        activitiesLaunched.getAndDecrement();
+
+        super.onDestroy();
+
     }
 }

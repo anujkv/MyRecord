@@ -10,6 +10,7 @@ import android.util.Log;
 import com.batproduction.myrecord.activity.AddEmployee.AddEmployee;
 import com.batproduction.myrecord.activity.AddProduct.AddProduct;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
+import com.batproduction.myrecord.model.EmployeeModel.EmployeeNameList;
 import com.batproduction.myrecord.model.ProductModel.Product;
 import com.google.gson.Gson;
 
@@ -36,15 +37,13 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String EMPLOYEE_BANKIFSC = "employee_bankifsc";
     private static final String EMPLOYEE_BANKACCOUNT = "employee_bankaccount";
 
-    private static final String DP_TABLE_NAME = "employee_table";
+    private static final String DP_TABLE_NAME = "db_table";
+    private static final String DP_COLUMN_ID = "dp_id";
     private static final String DP_EMP_ID = "employee_id";
-    private static final String DP_EMP_NAME = "employee_name";
-    private static final String DP_PRD_ID = "employee_contact";
-    private static final String DP_PRD_NAME = "employee_address";
-    private static final String DP_PRD_PRICE = "employee_aadharcard";
-    private static final String DP_QTY = "employee_bankname";
-    private static final String DP_TOTAL = "employee_bankifsc";
-    private static final String DP_DATE = "employee_bankaccount";
+    private static final String DP_PRD_ID = "product_id";
+    private static final String DP_QTY = "dp_qty";
+    private static final String DP_TOTAL = "dp_total";
+    private static final String DP_DATE = "dp_date";
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,7 +54,7 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_TABLE = "CREATE TABLE " +
-                PRODUCT_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PRODUCT_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT not null, " +
                 PRODUCT_COLUMN_ID + " TEXT not null," +
                 PRODUCT_COLUMN_NAME + " TEXT not null," +
                 PRODUCT_COLUMN_COST + " REAL not null)";
@@ -89,17 +88,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
 //ADD Daily Product Table----------------------------------------------------------------------------
         String CREATE_DAILY_PRODUCTION_TABLE = "CREATE TABLE " +
-                DP_TABLE_NAME + "(DP_COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DP_TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DP_EMP_ID + " TEXT not null," +
-                " FOREIGN KEY ("+DP_EMP_ID+") REFERENCES "+ EMPLOYEE_TABLE_NAME+ " ("+EMPLOYEE_COLUMN_ID+"),"+
-                DP_EMP_NAME + " TEXT not null," +
                 DP_PRD_ID + " TEXT not null," +
-                " FOREIGN KEY ("+DP_PRD_ID+") REFERENCES "+ PRODUCT_TABLE_NAME+ " ("+PRODUCT_COLUMN_ID+"),"+
-                DP_PRD_NAME + " TEXT not null," +
-                DP_PRD_PRICE + " TEXT not null," +
-                DP_QTY + " TEXT not null," +
-                DP_TOTAL + " TEXT not null," +
-                DP_DATE + " TEXT not null)";
+                DP_QTY + " INTEGER not null," +
+                DP_TOTAL + " INTEGER not null," +
+                DP_DATE + " DATE not null,"+
+                " FOREIGN KEY ("+DP_PRD_ID+") REFERENCES "+ PRODUCT_TABLE_NAME+ " ("+DP_PRD_ID+"), "+
+                " FOREIGN KEY ("+DP_EMP_ID+") REFERENCES "+ EMPLOYEE_TABLE_NAME+ " ("+DP_EMP_ID+"))";
         sqLiteDatabase.execSQL(CREATE_DAILY_PRODUCTION_TABLE);
 
 //        addEmployee("V001", "Sachin", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
@@ -108,6 +104,10 @@ public class DBHandler extends SQLiteOpenHelper {
 //        addEmployee("V004", "Abhishek", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
 //        addEmployee("V005", "Pradeep", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
 //        addEmployee("V006", "Amit", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
+
+    }
+
+    private void addDailyProductionEntry(String s) {
 
     }
 
@@ -161,6 +161,17 @@ public class DBHandler extends SQLiteOpenHelper {
         return data;
     }
 
+    public List<String> fetchProductList() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + PRODUCT_TABLE_NAME + " ;", null);
+        List<String> strings = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("product_name"));
+            strings.add(name);
+        }
+        return strings;
+    }
+
     //fetch last latest id--------------------------------------------------------------
     public ArrayList fetchEmpDetails(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -202,7 +213,6 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("employee_bankifsc", employee_bankifsc);
         values.put("employee_bankaccount", employee_bankaccount);
         database.insert(EMPLOYEE_TABLE_NAME, null, values);
-
     }
 
     public boolean addEmployee(String employee_id, String employee_name, String employee_contact,
@@ -276,6 +286,17 @@ public class DBHandler extends SQLiteOpenHelper {
         return data;
     }
 
+    public List<String> fetchEmployeeList() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + EMPLOYEE_TABLE_NAME + " ;", null);
+        List<String> strings = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("employee_name"));
+            strings.add(name);
+        }
+        return strings;
+    }
+//-----------------------------------------------------------------------------------------
 
     public boolean deleteitem(String context, String id) {
         Log.e(TAG, context);
@@ -286,7 +307,6 @@ public class DBHandler extends SQLiteOpenHelper {
 //        db.execSQL("delete from "+PRODUCT_TABLE_NAME+" where "+PRODUCT_COLUMN_ID+" ="+id);
             db.delete(EMPLOYEE_TABLE_NAME, EMPLOYEE_COLUMN_ID + "=?", new String[]{id});
         }
-        //
         return true;
 
     }
@@ -299,4 +319,6 @@ public class DBHandler extends SQLiteOpenHelper {
         db.update(PRODUCT_TABLE_NAME, values, PRODUCT_COLUMN_ID + "=?", new String[]{ID});
         return true;
     }
+
+
 }
