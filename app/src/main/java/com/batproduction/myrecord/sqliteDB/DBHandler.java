@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.batproduction.myrecord.activity.AddEmployee.AddEmployee;
 import com.batproduction.myrecord.activity.AddProduct.AddProduct;
+import com.batproduction.myrecord.model.DailyProductionEntryModel.DailyProductModel;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
 import com.batproduction.myrecord.model.EmployeeModel.EmployeeNameList;
 import com.batproduction.myrecord.model.ProductModel.Product;
@@ -41,6 +42,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DP_COLUMN_ID = "dp_id";
     private static final String DP_EMP_ID = "employee_id";
     private static final String DP_PRD_ID = "product_id";
+    private static final String DP_PRD_PRS = "product_cost";
     private static final String DP_QTY = "dp_qty";
     private static final String DP_TOTAL = "dp_total";
     private static final String DP_DATE = "dp_date";
@@ -91,25 +93,64 @@ public class DBHandler extends SQLiteOpenHelper {
                 DP_TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DP_EMP_ID + " TEXT not null," +
                 DP_PRD_ID + " TEXT not null," +
+                DP_PRD_PRS + "DOUBLE not null," +
                 DP_QTY + " INTEGER not null," +
-                DP_TOTAL + " INTEGER not null," +
+                DP_TOTAL + " DOUBLE not null," +
                 DP_DATE + " DATE not null,"+
                 " FOREIGN KEY ("+DP_PRD_ID+") REFERENCES "+ PRODUCT_TABLE_NAME+ " ("+DP_PRD_ID+"), "+
                 " FOREIGN KEY ("+DP_EMP_ID+") REFERENCES "+ EMPLOYEE_TABLE_NAME+ " ("+DP_EMP_ID+"))";
         sqLiteDatabase.execSQL(CREATE_DAILY_PRODUCTION_TABLE);
 
-//        addEmployee("V001", "Sachin", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
-//        addEmployee("V002", "Anuj", "9988776655", "Aligarh", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
-//        addEmployee("V003", "Vipin", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
-//        addEmployee("V004", "Abhishek", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
-//        addEmployee("V005", "Pradeep", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
-//        addEmployee("V006", "Amit", "9988776655", "Meerut", "DFDRG2563G", "ICICI BANK", "ICIC000064", "654321478956", sqLiteDatabase);
+        addDailyProductionEntry("V001", "31-Aug,2019 17:52:41","0123T",700,10,7000,sqLiteDatabase);
+        addDailyProductionEntry("V002", "31-Aug,2019 17:52:41","456T",1100,10,11000,sqLiteDatabase);
+        addDailyProductionEntry("V003", "31-Aug,2019 17:52:41","0123T",700,10,7000,sqLiteDatabase);
+        addDailyProductionEntry("V004", "31-Aug,2019 17:52:41","0123T",700,10,7000,sqLiteDatabase);
+        addDailyProductionEntry("V005", "31-Aug,2019 17:52:41","full",1300,10,13000,sqLiteDatabase);
 
     }
 
-    private void addDailyProductionEntry(String s) {
-
+    private void addDailyProductionEntry(String emp_id,String date,String product_id,double price, int qty,double total, SQLiteDatabase s) {
+        ContentValues values = new ContentValues();
+        values.put("employee_id", emp_id);
+        values.put("dp_date", date);
+        values.put("product_id", product_id);
+        values.put("product_cost", price);
+        values.put("dp_qty", qty);
+        values.put("dp_total", total);
+        s.insert(DP_TABLE_NAME, null, values);
     }
+
+    public List<DailyProductModel> getDailyProductionData() {
+        // Product dataModel = new Product();
+        List<DailyProductModel> data = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + PRODUCT_TABLE_NAME + " ;", null);
+        StringBuffer stringBuffer = new StringBuffer();
+        DailyProductModel dataModel = null;
+        while (cursor.moveToNext()) {
+            dataModel = new DailyProductModel();
+            String id = cursor.getString(cursor.getColumnIndexOrThrow("employee_id"));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow("dp_date"));
+            String product_id = cursor.getString(cursor.getColumnIndexOrThrow("product_id"));
+            String price = cursor.getString(cursor.getColumnIndexOrThrow("product_cost"));
+            String qty = cursor.getString(cursor.getColumnIndexOrThrow("dp_qty"));
+            String total = cursor.getString(cursor.getColumnIndexOrThrow("dp_total"));
+            dataModel.setEmployee_id(id);
+            dataModel.setDp_date(date);
+            dataModel.setProduct_id(product_id);
+            dataModel.setProduct_cost(price);
+            dataModel.setDp_qty(qty);
+            dataModel.setDp_total(total);
+            stringBuffer.append(dataModel);
+            // stringBuffer.append(dataModel);
+            data.add(dataModel);
+        }
+
+        return data;
+    }
+
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {

@@ -162,7 +162,6 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
                 if(start==0){
                     input_total.setText(start+"");
                 }
-
             }
 
             @SuppressLint("SetTextI18n")
