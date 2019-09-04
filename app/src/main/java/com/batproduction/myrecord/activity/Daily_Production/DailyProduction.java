@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -54,6 +55,10 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
     AlertDialog.Builder builder;
     AlertDialog dialog;
     EditText emp_id,input_created_date,input_product_name,input_price,input_qty,input_total;
+    String id,date,product_id;
+    double price,total;
+    int qty;
+    SQLiteDatabase s;
     Spinner employeeSpinner,productSpinner;
     List<EmployeeNameList> employeeNameLists;
 
@@ -126,6 +131,7 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Toast.makeText(getApplicationContext(), "Clicked on: " + arrayProductNameList.get(position), Toast.LENGTH_SHORT).show();
+                product_id = arrayProductNameList.get(position);
             }
 
             @Override
@@ -138,7 +144,7 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Toast.makeText(getApplicationContext(), "Clicked on: " + arrayNamaList.get(position), Toast.LENGTH_SHORT).show();
-
+                id = arrayNamaList.get(position);
             }
 
             @Override
@@ -172,10 +178,13 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
                     if (Integer.parseInt(editable.toString()) > 0) {
                         Log.e("Value ", String.valueOf(10 * Integer.parseInt(editable.toString())));
                         int x = Integer.parseInt(editable.toString());
-                        input_total.setText((10*x) + "");
+                        input_total.setText((Double.parseDouble(input_price.getText().toString().trim())*x) + "");
+                        total = Double.parseDouble(input_price.getText().toString().trim())*x;
+                        qty = x;
                     }
                 }catch(NumberFormatException e){
                     input_total.setText("0");
+                    total = 0;
                 }
             }
         });
@@ -197,30 +206,24 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
 
                 input_created_date.setText(dateTime.currentDateTime());
 
-//                try {
-//                    id = emp_id.getText().toString().trim();
-//                    name = emp_name.getText().toString().trim();
-//                    contact = emp_contact.getText().toString().trim();
-//                    address = emp_address.getText().toString().trim();
-//                    aadharCard = emp_aadharcard.getText().toString().trim();
-//                    bankName = bank_name.getText().toString().trim();
-//                    bankIfsc = bank_ifsc.getText().toString().trim();
-//                    backAccount = bank_account.getText().toString().trim();
-//
-//                    DBHandler dbHandler = new DBHandler(AddEmployee.this);
-//                    if (dbHandler.addEmployee(id, name, contact,address,aadharCard,bankName,bankIfsc,backAccount)) {
-//                        Toast.makeText(AddEmployee.this, "Product add, successfully!", Toast.LENGTH_SHORT).show();
-//
+                try {
+
+                    DBHandler dbHandler = new DBHandler(DailyProduction.this);
+
+                    if(dbHandler.addDailyProductionEntry(id,date, product_id, price,  qty, total)){
+
+                        Toast.makeText(DailyProduction.this, "Product add, successfully!", Toast.LENGTH_SHORT).show();
+
 //                        initRecyclerView();
-//
-//                    } else {
-//                        Toast.makeText(AddEmployee.this, "Product not add, unsuccessful!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
+
+                    } else {
+                        Toast.makeText(DailyProduction.this, "Data not add, unsuccessful!", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         dialog = builder.create();

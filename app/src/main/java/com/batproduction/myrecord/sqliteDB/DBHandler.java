@@ -7,11 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.batproduction.myrecord.activity.AddEmployee.AddEmployee;
-import com.batproduction.myrecord.activity.AddProduct.AddProduct;
 import com.batproduction.myrecord.model.DailyProductionEntryModel.DailyProductModel;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
-import com.batproduction.myrecord.model.EmployeeModel.EmployeeNameList;
 import com.batproduction.myrecord.model.ProductModel.Product;
 import com.google.gson.Gson;
 
@@ -109,7 +106,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    private void addDailyProductionEntry(String emp_id,String date,String product_id,double price, int qty,double total, SQLiteDatabase s) {
+    public boolean addDailyProductionEntry(String emp_id, String date, String product_id, double price, int qty, double total, SQLiteDatabase s) {
         ContentValues values = new ContentValues();
         values.put("employee_id", emp_id);
         values.put("dp_date", date);
@@ -118,6 +115,20 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("dp_qty", qty);
         values.put("dp_total", total);
         s.insert(DP_TABLE_NAME, null, values);
+        return true;
+    }
+
+    public boolean addDailyProductionEntry(String emp_id, String date, String product_id, double price, int qty, double total) {
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+        values.put("employee_id", emp_id);
+        values.put("dp_date", date);
+        values.put("product_id", product_id);
+        values.put("product_cost", price);
+        values.put("dp_qty", qty);
+        values.put("dp_total", total);
+        db.insert(DP_TABLE_NAME, null, values);
+        return true;
     }
 
     public List<DailyProductModel> getDailyProductionData() {
@@ -142,7 +153,7 @@ public class DBHandler extends SQLiteOpenHelper {
             dataModel.setDp_qty(qty);
             dataModel.setDp_total(total);
             stringBuffer.append(dataModel);
-            // stringBuffer.append(dataModel);
+             stringBuffer.append(dataModel);
             data.add(dataModel);
         }
 

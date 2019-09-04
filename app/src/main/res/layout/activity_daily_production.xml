@@ -27,112 +27,121 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <HorizontalScrollView
+            <?xml version="1.0" encoding="utf-8"?>
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="vertical">
+            </TableLayout>
+            <!--<HorizontalScrollView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <TableLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:stretchColumns="7"
-                    android:weightSum="1">
+                <!--<TableLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:stretchColumns="7"-->
+                    <!--android:weightSum="1">-->
 
-                    <TableRow>
+                    <!--<TableRow>-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/uuid"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/uuid"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/employee_name_tv"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/employee_name_tv"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/created_date"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/created_date"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/product_name_tv"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/product_name_tv"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/price"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/price"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/qty"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/qty"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="@string/total"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </TableRow>
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="@string/total"-->
+                            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+                    <!--</TableRow>-->
 
-                    <TableRow>
+                    <!--<TableRow>-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:padding="3dip"
-                            android:text="01" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="01" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="Sachin" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="Sachin" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="12 Aug,2019" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="12 Aug,2019" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="0123 Thin" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="0123 Thin" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="700" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="700" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:padding="3dip"
-                            android:text="10" />
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="10" />-->
 
-                        <TextView
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:padding="3dip"
-                            android:text="7000" />
-                    </TableRow>
-                </TableLayout>
-            </HorizontalScrollView>
+                        <!--<TextView-->
+                            <!--android:background="@drawable/cell_shape"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="3dip"-->
+                            <!--android:text="7000" />-->
+                    <!--</TableRow>-->
+                <!--</TableLayout>-->
+            <!--</HorizontalScrollView>-->
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
