@@ -212,6 +212,40 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return data;
     }
+    public String fetchProductId(String id){
+        String idS = "";
+        Log.e("idS",new Gson().toJson(id));
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+ PRODUCT_COLUMN_ID +" FROM "+PRODUCT_TABLE_NAME+" Where "+
+                PRODUCT_COLUMN_NAME+"=?", new String[]{id});
+        Log.e("Curser",new Gson().toJson(cursor));
+        List<Double> price = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            idS = cursor.getString(cursor.getColumnIndexOrThrow(PRODUCT_COLUMN_ID));
+
+            Log.e("idS",new Gson().toJson(idS));
+        }
+        cursor.close();
+        db.close();
+        return idS;
+    }
+    public double fetchPrice(String id){
+        double name = 0;
+        Log.e("id",new Gson().toJson(id));
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+ PRODUCT_COLUMN_COST +" FROM "+PRODUCT_TABLE_NAME+" Where "+
+                PRODUCT_COLUMN_NAME+"=?", new String[]{id});
+        Log.e("Curser",new Gson().toJson(cursor));
+        List<Double> price = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            name = cursor.getDouble(cursor.getColumnIndexOrThrow("product_cost"));
+
+            Log.e("price",new Gson().toJson(name));
+        }
+        cursor.close();
+        db.close();
+        return name;
+    }
 
     public List<String> fetchProductList() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -283,6 +317,23 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(EMPLOYEE_TABLE_NAME, null, values);
         db.close();
         return true;
+    }
+    public String fetchEmployee(String name){
+        String id = null;
+
+        Log.e("name",new Gson().toJson(name));
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+ EMPLOYEE_COLUMN_ID +" FROM "+EMPLOYEE_TABLE_NAME+" Where "+
+                EMPLOYEE_COLUMN_NAME+"=?", new String[]{name});
+        Log.e("Curser",new Gson().toJson(cursor));
+        while (cursor.moveToNext()) {
+            id = cursor.getString(cursor.getColumnIndexOrThrow(EMPLOYEE_COLUMN_ID));
+
+            Log.e("price",new Gson().toJson(id));
+        }
+        cursor.close();
+        db.close();
+        return id;
     }
 
     public boolean updateEmployeeDetail(String employee_id, String employee_name, String employee_contact,
