@@ -39,7 +39,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DP_COLUMN_ID = "dp_id";
     private static final String DP_EMP_ID = "employee_id";
     private static final String DP_PRD_ID = "product_id";
-    private static final String DP_PRD_PRS = "product_cost";
+    private static final String DP_PRD_PRS = "price";
     private static final String DP_QTY = "dp_qty";
     private static final String DP_TOTAL = "dp_total";
     private static final String DP_DATE = "dp_date";
@@ -87,10 +87,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
 //ADD Daily Product Table----------------------------------------------------------------------------
         String CREATE_DAILY_PRODUCTION_TABLE = "CREATE TABLE " +
-                DP_TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DP_TABLE_NAME + "( "+
+                DP_COLUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DP_EMP_ID + " TEXT not null," +
                 DP_PRD_ID + " TEXT not null," +
-                DP_PRD_PRS + "DOUBLE not null," +
+                DP_PRD_PRS + " DOUBLE not null," +
                 DP_QTY + " INTEGER not null," +
                 DP_TOTAL + " DOUBLE not null," +
                 DP_DATE + " DATE not null,"+
@@ -111,7 +112,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("employee_id", emp_id);
         values.put("dp_date", date);
         values.put("product_id", product_id);
-        values.put("product_cost", price);
+        values.put("price", price);
         values.put("dp_qty", qty);
         values.put("dp_total", total);
         s.insert(DP_TABLE_NAME, null, values);
@@ -124,7 +125,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("employee_id", emp_id);
         values.put("dp_date", date);
         values.put("product_id", product_id);
-        values.put("product_cost", price);
+        values.put("price", price);
         values.put("dp_qty", qty);
         values.put("dp_total", total);
         db.insert(DP_TABLE_NAME, null, values);
@@ -143,7 +144,7 @@ public class DBHandler extends SQLiteOpenHelper {
             String id = cursor.getString(cursor.getColumnIndexOrThrow("employee_id"));
             String date = cursor.getString(cursor.getColumnIndexOrThrow("dp_date"));
             String product_id = cursor.getString(cursor.getColumnIndexOrThrow("product_id"));
-            String price = cursor.getString(cursor.getColumnIndexOrThrow("product_cost"));
+            String price = cursor.getString(cursor.getColumnIndexOrThrow("price"));
             String qty = cursor.getString(cursor.getColumnIndexOrThrow("dp_qty"));
             String total = cursor.getString(cursor.getColumnIndexOrThrow("dp_total"));
             dataModel.setEmployee_id(id);
