@@ -5,70 +5,82 @@ import com.google.gson.annotations.SerializedName;
 
 public class DailyProductModel {
 
+    @SerializedName("dp_id")
+    @Expose
+    private String dpId;
     @SerializedName("employee_id")
     @Expose
-    private String employee_id;
+    private String employeeId;
     @SerializedName("dp_date")
     @Expose
-    private String dp_date;
+    private String dpDate;
     @SerializedName("product_id")
     @Expose
-    private String product_id;
-    @SerializedName("product_cost")
+    private String productId;
+    @SerializedName("price")
     @Expose
-    private String product_cost;
+    private String price;
     @SerializedName("dp_qty")
     @Expose
-    private String dp_qty;
+    private String dpQty;
     @SerializedName("dp_total")
     @Expose
-    private String dp_total;
+    private String dpTotal;
 
-    public String getEmployee_id() {
-        return employee_id;
+    public String getDpId() {
+        return dpId;
     }
 
-    public void setEmployee_id(String employee_id) {
-        this.employee_id = employee_id;
+    public void setDpId(String dpId) {
+        this.dpId = dpId;
     }
 
-    public String getDp_date() {
-        return dp_date;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setDp_date(String dp_date) {
-        this.dp_date = dp_date;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getProduct_id() {
-        return product_id;
+    public String getDpDate() {
+        return dpDate;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setDpDate(String dpDate) {
+        this.dpDate = dpDate;
     }
 
-    public String getProduct_cost() {
-        return product_cost;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setProduct_cost(String product_cost) {
-        this.product_cost = product_cost;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
-    public String getDp_qty() {
-        return dp_qty;
+    public String getPrice() {
+        return price;
     }
 
-    public void setDp_qty(String dp_qty) {
-        this.dp_qty = dp_qty;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getDp_total() {
-        return dp_total;
+    public String getDpQty() {
+        return dpQty;
     }
 
-    public void setDp_total(String dp_total) {
-        this.dp_total = dp_total;
+    public void setDpQty(String dpQty) {
+        this.dpQty = dpQty;
     }
+
+    public String getDpTotal() {
+        return dpTotal;
+    }
+
+    public void setDpTotal(String dpTotal) {
+        this.dpTotal = dpTotal;
+    }
+
 }

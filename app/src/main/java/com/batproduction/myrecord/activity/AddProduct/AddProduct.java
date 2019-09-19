@@ -177,8 +177,10 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
                         if (trm){
 
                             alertDialog.dismiss();
-                            finish();
-                            startActivity(getIntent());
+//                            finish();
+//                            startActivity(getIntent());
+
+                            initRecyclerView();
                         } }
                 });
                 alertDialog.show();
@@ -212,7 +214,6 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
         builder.setView(addLayout);
         builder.setCancelable(false);
 
-
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             @Override
@@ -226,8 +227,6 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void onClick(final DialogInterface dialog, int which) {
-
-
 
                 try {
                     id = input_product_id.getText().toString().trim();

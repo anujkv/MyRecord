@@ -54,7 +54,7 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
         aebi = DataBindingUtil.setContentView(this, R.layout.activity_add_employee);
         ButterKnife.bind(this);
         setSupportActionBar((Toolbar) aebi.toolbar);
-        title_toolbar.setText("Add Product");
+        title_toolbar.setText("Add Employee");
         ImageButton backbtn_toolbar = findViewById(R.id.backbtn_toolbar);
         backbtn_toolbar.setOnClickListener(this);
         aebi.fabBtn.setOnClickListener(this);
@@ -114,8 +114,9 @@ public class AddEmployee extends AppCompatActivity implements View.OnClickListen
                         if (trm) {
 
                             alertDialog.dismiss();
-                            finish();
-                            startActivity(getIntent());
+//                            finish();
+//                            startActivity(getIntent());
+                            initRecyclerView();
                         }
                     }
                 });

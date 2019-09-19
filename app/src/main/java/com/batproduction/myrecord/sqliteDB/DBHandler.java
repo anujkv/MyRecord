@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -107,8 +108,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean addDailyProductionEntry(String emp_id, String date, String product_id, double price, int qty, double total, SQLiteDatabase s) {
+    public boolean addDailyProductionEntry(String emp_id, String date, String product_id,
+                                           double price, int qty, double total, SQLiteDatabase s)
+    {
         ContentValues values = new ContentValues();
+//        values.put("dp_id", );
         values.put("employee_id", emp_id);
         values.put("dp_date", date);
         values.put("product_id", product_id);
@@ -119,9 +123,11 @@ public class DBHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean addDailyProductionEntry(String emp_id, String date, String product_id, double price, int qty, double total) {
+    public boolean addDailyProductionEntry(String emp_id, String date, String product_id,
+                                           double price, int qty, double total) {
         ContentValues values = new ContentValues();
         SQLiteDatabase db = this.getWritableDatabase();
+//        values.put("dp_id", 1);
         values.put("employee_id", emp_id);
         values.put("dp_date", date);
         values.put("product_id", product_id);
@@ -131,28 +137,40 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(DP_TABLE_NAME, null, values);
         return true;
     }
+    public Cursor showProductionTable(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor  cursor = sqLiteDatabase.rawQuery("select * from " + DP_TABLE_NAME + " ;", null);
+        if(cursor != null && !cursor.isClosed()){
+            cursor.close();
+
+        }
+        return cursor;
+    }
+
 
     public List<DailyProductModel> getDailyProductionData() {
         // Product dataModel = new Product();
         List<DailyProductModel> data = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from " + PRODUCT_TABLE_NAME + " ;", null);
+        Cursor cursor = db.rawQuery("select * from " + DP_TABLE_NAME + " ;", null);
         StringBuffer stringBuffer = new StringBuffer();
         DailyProductModel dataModel = null;
         while (cursor.moveToNext()) {
             dataModel = new DailyProductModel();
-            String id = cursor.getString(cursor.getColumnIndexOrThrow("employee_id"));
+            String id = cursor.getString(cursor.getColumnIndexOrThrow("dp_id"));
+            String emplid = cursor.getString(cursor.getColumnIndexOrThrow("employee_id"));
             String date = cursor.getString(cursor.getColumnIndexOrThrow("dp_date"));
             String product_id = cursor.getString(cursor.getColumnIndexOrThrow("product_id"));
             String price = cursor.getString(cursor.getColumnIndexOrThrow("price"));
             String qty = cursor.getString(cursor.getColumnIndexOrThrow("dp_qty"));
             String total = cursor.getString(cursor.getColumnIndexOrThrow("dp_total"));
-            dataModel.setEmployee_id(id);
-            dataModel.setDp_date(date);
-            dataModel.setProduct_id(product_id);
-            dataModel.setProduct_cost(price);
-            dataModel.setDp_qty(qty);
-            dataModel.setDp_total(total);
+            dataModel.setDpId(id);
+            dataModel.setEmployeeId(emplid);
+            dataModel.setDpDate(date);
+            dataModel.setProductId(product_id);
+            dataModel.setPrice(price);
+            dataModel.setDpQty(qty);
+            dataModel.setDpTotal(total);
             stringBuffer.append(dataModel);
              stringBuffer.append(dataModel);
             data.add(dataModel);
@@ -161,13 +179,6 @@ public class DBHandler extends SQLiteOpenHelper {
         return data;
     }
 
-
-
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+PRODUCT_TABLE_NAME+" ;");
-    }
 
     //    public String loadHandler() {}
     public void addProduct(String product_id, String product_name, double product_cost, SQLiteDatabase database) {
@@ -259,6 +270,14 @@ public class DBHandler extends SQLiteOpenHelper {
         return strings;
     }
 
+    public boolean updateProductHandler(String ID, double cost) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PRODUCT_COLUMN_COST, cost);
+        db.update(PRODUCT_TABLE_NAME, values, PRODUCT_COLUMN_ID + "=?", new String[]{ID});
+        return true;
+    }
+
     //fetch last latest id--------------------------------------------------------------
     public ArrayList fetchEmpDetails(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -286,7 +305,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return arrayList;
     }
 
-    //----------------------------------------------------------------------------------
+    //Employee----------------------------------------------------------------------------------
     public void addEmployee(String employee_id, String employee_name, String employee_contact,
                             String employee_address, String employee_aadharcard, String employee_bankname,
                             String employee_bankifsc, String employee_bankaccount, SQLiteDatabase database) {
@@ -407,22 +426,22 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         if (context.equals("AddProduct")) {
             db.delete(PRODUCT_TABLE_NAME, PRODUCT_COLUMN_ID + "=?", new String[]{id});
-        } else if (context.equals("AddEmployee")) {
+        }
+        else if (context.equals("AddEmployee")) {
 //        db.execSQL("delete from "+PRODUCT_TABLE_NAME+" where "+PRODUCT_COLUMN_ID+" ="+id);
             db.delete(EMPLOYEE_TABLE_NAME, EMPLOYEE_COLUMN_ID + "=?", new String[]{id});
+        }
+        else if(context.equals("DailyProduction")) {
+            db.delete(DP_TABLE_NAME, DP_COLUMN_ID + "=?", new String[]{id});
         }
         return true;
 
     }
 
+// UPGRADE---------------------------------------------------------------------------------
 
-    public boolean updateProductHandler(String ID, double cost) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(PRODUCT_COLUMN_COST, cost);
-        db.update(PRODUCT_TABLE_NAME, values, PRODUCT_COLUMN_ID + "=?", new String[]{ID});
-        return true;
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+PRODUCT_TABLE_NAME+" ;");
     }
-
-
 }

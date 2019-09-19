@@ -20,12 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.batproduction.myrecord.R;
+import com.batproduction.myrecord.adaptor.DailyProductionAdaptor;
 import com.batproduction.myrecord.databinding.ActivityDailyProductionBinding;
+import com.batproduction.myrecord.model.DailyProductionEntryModel.DailyProductModel;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
 import com.batproduction.myrecord.model.EmployeeModel.EmployeeNameList;
 import com.batproduction.myrecord.model.ProductModel.Product;
 import com.batproduction.myrecord.sqliteDB.DBHandler;
 import com.batproduction.myrecord.utils.DateTime;
+import com.batproduction.myrecord.utils.RecyclerItemClickListener;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -33,6 +36,7 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,8 +56,11 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
     int qty;
     SQLiteDatabase s;
     Spinner employeeSpinner, productSpinner;
-    List<EmployeeNameList> employeeNameLists;
+    List<DailyProductModel> dailyProductModelList;
+    DailyProductionAdaptor adaptor;
     Cursor data;
+    String arrr;
+    DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +73,7 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
         backBtn_toolbar.setOnClickListener(this);
         adpb.fabBtn.setOnClickListener(this);
 
-        Cursor data;
-        DBHandler dbHandler = new DBHandler(DailyProduction.this);
-//        data = dbHandler.showProductionTable();
+        initRecyclerView();
 //        if (data != null && data.moveToFirst()) {
 //            do {
 //                View tableRow = LayoutInflater.from(this).inflate(R.layout.entry_row_item_layout, null, false);
@@ -94,6 +99,70 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
 ////            data.close();
 //        }
 
+    }
+
+    private void initRecyclerView() {
+        dbHandler = new DBHandler(DailyProduction.this);
+        dailyProductModelList = dbHandler.getDailyProductionData();
+        if(dailyProductModelList!=null){
+            adaptor = new DailyProductionAdaptor(this, dailyProductModelList);
+            adpb.addEntryRV.setLayoutManager(new LinearLayoutManager(this));
+            adpb.addEntryRV.setHasFixedSize(true);
+            adpb.addEntryRV.setAdapter(adaptor);
+
+            adpb.addEntryRV.addOnItemTouchListener(new RecyclerItemClickListener(
+                    getApplicationContext(),adpb.addEntryRV,new RecyclerItemClickListener
+                    .OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    String arrr = dailyProductModelList.get(position).getDpId();
+                    Toast.makeText(DailyProduction.this, ""+arrr, Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public boolean onLongClick(View view, int position) {
+                    arrr= dailyProductModelList.get(position).getDpId();
+//                ar = Integer.parseInt(arrr);
+
+                    Log.e("ID",arrr);
+                    final AlertDialog alertDialog =new AlertDialog.Builder(DailyProduction.this).create();
+                    alertDialog.setTitle("Are you want to delete this");
+                    alertDialog.setCancelable(false);
+                    alertDialog.setMessage("By deleting this, item will permanently be deleted. Are you still want to delete this?");
+                    alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            alertDialog.dismiss();
+//                        finish();
+//                        startActivity(getIntent());
+
+
+                        }
+                    });
+                    alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DBHandler databaseHelper = new DBHandler(DailyProduction.this);
+                            boolean trm=databaseHelper.deleteitem(TAG, arrr);
+                            if (trm){
+
+                                alertDialog.dismiss();
+//                                finish();
+//                                startActivity(getIntent());
+                                initRecyclerView();
+                            } }
+                    });
+                    alertDialog.show();
+
+                    return true;
+                }
+            }));
+
+
+        }
     }
 
     @Override
@@ -130,15 +199,15 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
         DBHandler dbHandler = new DBHandler(this);
         List<String> arrayNamaList = dbHandler.fetchEmployeeList();
         arrayNamaList.add(0, "Select");
-        List<Product> productList;
-        productList = dbHandler.getProductData();
+        List<Product> dailyProductModelList;
+        dailyProductModelList = dbHandler.getProductData();
         List<Employee> employeeList;
         employeeList = dbHandler.getEmployeeData();
 
         List<String> arrayProductNameList = dbHandler.fetchProductList();
         arrayProductNameList.add(0, "Select");
 
-        Log.e(TAG + " Product", new Gson().toJson(productList));
+        Log.e(TAG + " Product", new Gson().toJson(dailyProductModelList));
         Log.e(TAG + " employeeList", new Gson().toJson(employeeList));
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 this, R.layout.spinner_item, arrayNamaList);
@@ -240,9 +309,9 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
                     if (dbHandler.addDailyProductionEntry(id, date, product_id, price, qty, total)) {
 
                         Toast.makeText(DailyProduction.this, "Product add, successfully!", Toast.LENGTH_SHORT).show();
-
-//                        initRecyclerView();
-
+//                        finish();
+//                        startActivity(getIntent());
+                        initRecyclerView();
                     } else {
                         Toast.makeText(DailyProduction.this, "Data not add, unsuccessful!", Toast.LENGTH_SHORT).show();
                     }
