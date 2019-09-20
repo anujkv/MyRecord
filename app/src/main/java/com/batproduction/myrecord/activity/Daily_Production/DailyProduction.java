@@ -199,10 +199,10 @@ public class DailyProduction extends AppCompatActivity implements View.OnClickLi
         DBHandler dbHandler = new DBHandler(this);
         List<String> arrayNamaList = dbHandler.fetchEmployeeList();
         arrayNamaList.add(0, "Select");
-        List<Product> dailyProductModelList;
-        dailyProductModelList = dbHandler.getProductData();
         List<Employee> employeeList;
         employeeList = dbHandler.getEmployeeData();
+        List<Product> dailyProductModelList;
+        dailyProductModelList = dbHandler.getProductData();
 
         List<String> arrayProductNameList = dbHandler.fetchProductList();
         arrayProductNameList.add(0, "Select");

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.batproduction.myrecord.model.CashDModule.CashDistributionResponse;
 import com.batproduction.myrecord.model.DailyProductionEntryModel.DailyProductModel;
 import com.batproduction.myrecord.model.EmployeeModel.Employee;
 import com.batproduction.myrecord.model.ProductModel.Product;
@@ -44,6 +45,12 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DP_QTY = "dp_qty";
     private static final String DP_TOTAL = "dp_total";
     private static final String DP_DATE = "dp_date";
+
+    private static final String CASH_TABLE_NAME = "cash_table";
+    private static final String CASH_ID = "cash_id";
+    private static final String CASH_EMP_ID = "employee_id";
+    private static final String CASH_TRANS_DATE = "cash_trans_date";
+    private static final String CASH_DISTRIBUTE_AMOUNT = "cash_amount";
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -106,7 +113,66 @@ public class DBHandler extends SQLiteOpenHelper {
         addDailyProductionEntry("V004", "31-Aug,2019 17:52:41","0123T",700,10,7000,sqLiteDatabase);
         addDailyProductionEntry("V005", "31-Aug,2019 17:52:41","full",1300,10,13000,sqLiteDatabase);
 
+//Cash Distribution-------------------------------------------------------------------------------
+        String CREATE_CASH_DISTRIBUTION_TABLE = "CREATE TABLE " +
+                CASH_TABLE_NAME + "( "+
+                CASH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CASH_EMP_ID + " TEXT not null, " +
+                CASH_TRANS_DATE + " TEXT not null, " +
+                CASH_DISTRIBUTE_AMOUNT + " INTEGER not null, " +
+                " FOREIGN KEY ("+ CASH_EMP_ID + ") REFERENCES " + EMPLOYEE_TABLE_NAME+ " ("+CASH_EMP_ID+"))";
+        sqLiteDatabase.execSQL(CREATE_CASH_DISTRIBUTION_TABLE);
+
+        addCashDistribution("V001", "31-Aug,2019 17:52:41",700,sqLiteDatabase);
+        addCashDistribution("V001", "31-Aug,2019 17:52:41",300,sqLiteDatabase);
+        addCashDistribution("V002", "31-Aug,2019 17:52:41",500,sqLiteDatabase);
     }
+
+    public boolean addCashDistribution(String emp_id, String date, int cash_amount) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("employee_id",emp_id);
+        values.put("cash_trans_date",date);
+        values.put("cash_amount",cash_amount);
+        sqLiteDatabase.insert(CASH_TABLE_NAME, null, values);
+        return true;
+    }
+
+    public boolean addCashDistribution(String emp_id, String date, int cash_amount, SQLiteDatabase sqLiteDatabase) {
+        ContentValues values = new ContentValues();
+        values.put("employee_id",emp_id);
+        values.put("cash_trans_date",date);
+        values.put("cash_amount",cash_amount);
+        sqLiteDatabase.insert(CASH_TABLE_NAME, null, values);
+        return true;
+    }
+
+    public List<CashDistributionResponse> getCashData(){
+        List<CashDistributionResponse> data = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("select * from "+ CASH_TABLE_NAME + " ;",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM employee_table A, " +
+                CASH_TABLE_NAME+ " B " +
+                "WHERE A.employee_id=B.employee_id ;", null);
+        StringBuffer stringBuffer = new StringBuffer();
+        CashDistributionResponse response = null;
+        while (cursor.moveToNext()){
+            response = new CashDistributionResponse();
+            String id = cursor.getString(cursor.getColumnIndexOrThrow(CASH_ID));
+            String emp_id = cursor.getString(cursor.getColumnIndexOrThrow("A.employee_name"));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(CASH_TRANS_DATE));
+            String cash = cursor.getString(cursor.getColumnIndexOrThrow(CASH_DISTRIBUTE_AMOUNT));
+            response.setCashId(id);
+            response.setEmployeeId(emp_id);
+            response.setDpDate(date);
+            response.setCash(cash);
+            stringBuffer.append(response);
+            data.add(response);
+
+        }
+        return data;
+    }
+
 
     public boolean addDailyProductionEntry(String emp_id, String date, String product_id,
                                            double price, int qty, double total, SQLiteDatabase s)
@@ -152,15 +218,18 @@ public class DBHandler extends SQLiteOpenHelper {
         // Product dataModel = new Product();
         List<DailyProductModel> data = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from " + DP_TABLE_NAME + " ;", null);
+//        Cursor cursor = db.rawQuery("select * from " + DP_TABLE_NAME + " ;", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM product_table A,employee_table B,db_table C " +
+                "WHERE A.product_id=C.product_id AND B.employee_id=C.employee_id ;", null);
+
         StringBuffer stringBuffer = new StringBuffer();
         DailyProductModel dataModel = null;
         while (cursor.moveToNext()) {
             dataModel = new DailyProductModel();
             String id = cursor.getString(cursor.getColumnIndexOrThrow("dp_id"));
-            String emplid = cursor.getString(cursor.getColumnIndexOrThrow("employee_id"));
+            String emplid = cursor.getString(cursor.getColumnIndexOrThrow("B.employee_name"));
             String date = cursor.getString(cursor.getColumnIndexOrThrow("dp_date"));
-            String product_id = cursor.getString(cursor.getColumnIndexOrThrow("product_id"));
+            String product_id = cursor.getString(cursor.getColumnIndexOrThrow("A.product_name"));
             String price = cursor.getString(cursor.getColumnIndexOrThrow("price"));
             String qty = cursor.getString(cursor.getColumnIndexOrThrow("dp_qty"));
             String total = cursor.getString(cursor.getColumnIndexOrThrow("dp_total"));
@@ -172,7 +241,6 @@ public class DBHandler extends SQLiteOpenHelper {
             dataModel.setDpQty(qty);
             dataModel.setDpTotal(total);
             stringBuffer.append(dataModel);
-             stringBuffer.append(dataModel);
             data.add(dataModel);
         }
 
@@ -409,6 +477,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return data;
     }
 
+
     public List<String> fetchEmployeeList() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + EMPLOYEE_TABLE_NAME + " ;", null);
@@ -434,8 +503,10 @@ public class DBHandler extends SQLiteOpenHelper {
         else if(context.equals("DailyProduction")) {
             db.delete(DP_TABLE_NAME, DP_COLUMN_ID + "=?", new String[]{id});
         }
+        else if(context.equals("CashDistribution")){
+            db.delete(CASH_TABLE_NAME,CASH_ID + "=?", new String[]{id});
+        }
         return true;
-
     }
 
 // UPGRADE---------------------------------------------------------------------------------

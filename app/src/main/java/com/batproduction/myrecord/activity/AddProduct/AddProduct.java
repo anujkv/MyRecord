@@ -214,6 +214,8 @@ public class AddProduct extends AppCompatActivity implements View.OnClickListene
         builder.setView(addLayout);
         builder.setCancelable(false);
 
+
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             @Override

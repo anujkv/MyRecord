@@ -18,56 +18,36 @@
             android:weightSum="1"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/margin2dp">
+            android:padding="@dimen/margin4dp">
             <TextView
-                android:id="@+id/IDTV"
+                android:id="@+id/cashIdTV"
                 android:layout_width="0dp"
-                android:layout_weight=".05"
+                android:layout_weight=".3"
                 android:padding="@dimen/margin4dp"
                 android:visibility="gone"
-                android:gravity="center"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/employeeIDTV"
-                android:layout_width="@dimen/margin0dp"
-                android:layout_weight=".15"
-                android:padding="@dimen/margin4dp"
-                android:gravity="center"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/DateIDTV"
+                android:id="@+id/employeeTV"
                 android:layout_width="0dp"
-                android:layout_weight=".2"
+                android:layout_weight=".3"
                 android:padding="@dimen/margin4dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/productIDTV"
+                android:id="@+id/dateTV"
                 android:layout_width="@dimen/margin0dp"
-                android:layout_weight=".15"
+                android:layout_weight=".4"
                 android:padding="@dimen/margin4dp"
-                android:gravity="center"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/priceIDTV"
-                android:layout_width="0dp"
-                android:layout_weight=".15"
-                android:padding="@dimen/margin4dp"
-                android:gravity="center"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/qtyTV"
+            <EditText
+                android:id="@+id/cashED"
                 android:layout_width="@dimen/margin0dp"
-                android:layout_weight=".05"
-                android:padding="@dimen/margin4dp"
+                android:layout_weight=".3"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text12sp"
+                android:inputType="number"
                 android:gravity="center"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/totalTV"
-                android:layout_width="@dimen/margin0dp"
-                android:layout_weight=".15"
+                android:enabled="false"
                 android:padding="@dimen/margin4dp"
-                android:gravity="center"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 

@@ -47,4 +47,5 @@
 
     <string name="product_prompt">Products</string>
     <string name="employee_prompt">Employee</string>
+    <string name="cash_distribute">Cash Distributation</string>
 </resources>

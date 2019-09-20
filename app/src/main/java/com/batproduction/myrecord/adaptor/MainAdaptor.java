@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.batproduction.myrecord.R;
 import com.batproduction.myrecord.activity.AddEmployee.AddEmployee;
 import com.batproduction.myrecord.activity.AddProduct.AddProduct;
+import com.batproduction.myrecord.activity.CashDistribution.CashDistribution;
 import com.batproduction.myrecord.activity.Daily_Production.DailyProduction;
 import com.batproduction.myrecord.model.MainModel;
 
@@ -73,6 +74,7 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.HolderView> {
 //                        accessRoleInstance.check("activities",context);
                         Toast.makeText(context, "Daily Distribution Cash",
                                 Toast.LENGTH_SHORT).show();
+                        context.startActivity(new Intent(context, CashDistribution.class));
                         break;
                     case 4:
                         Toast.makeText(context, "Employee Income",
